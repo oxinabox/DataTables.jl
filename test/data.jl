@@ -9,7 +9,7 @@ module TestData
     nvint2 = NullableArray(5:8)
     nvint3 = NullableArray(5:8)
     nvflt = NullableArray(Nullable{Float64}[1.0, 2.0, Nullable(), 4.0])
-    nvstr = NullableArray(Nullable{Compat.ASCIIString}["one", "two", Nullable(), "four"])
+    nvstr = NullableArray(Nullable{String}["one", "two", Nullable(), "four"])
     dvdict = NullableArray(Dict, 4)    # for issue #199
 
     #test_group("constructors")

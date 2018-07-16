@@ -14,9 +14,7 @@ module TestConversions
     dt[:A] = 1:5
     dt[:B] = 1.0:5.0
     # Fails on Julia 0.4 since promote_type(Nullable{Int}, Nullable{Float64}) gives Nullable{T}
-    if VERSION >= v"0.5.0-dev"
-        @test isa(convert(Array, dt), Matrix{Float64})
-    end
+    @test isa(convert(Array, dt), Matrix{Float64})
     @test convert(Array, dt) == convert(Array, convert(NullableArray, dt))
     @test isa(convert(Array{Any}, dt), Matrix{Any})
     @test isa(convert(Array{Float64}, dt), Matrix{Float64})

@@ -170,10 +170,10 @@ rename(f::Function, dt::AbstractDataTable)
 
 ```julia
 dt = DataTable(i = 1:10, x = rand(10), y = rand(["a", "b", "c"], 10))
-rename(x -> @compat(Symbol)(uppercase(string(x))), dt)
-rename(dt, @compat(Dict(:i=>:A, :x=>:X)))
+rename(x -> Symbol(uppercase(string(x))), dt)
+rename(dt, Dict(:i=>:A, :x=>:X))
 rename(dt, :y, :Y)
-rename!(dt, @compat(Dict(:i=>:A, :x=>:X)))
+rename!(dt, Dict(:i=>:A, :x=>:X))
 ```
 
 """
@@ -236,7 +236,7 @@ Base.similar(dt::AbstractDataTable, dims::Int) =
 ##############################################################################
 
 # Imported in DataTables.jl for compatibility across Julia 0.4 and 0.5
-@compat(Base.:(==))(dt1::AbstractDataTable, dt2::AbstractDataTable) = isequal(dt1, dt2)
+Base.:(==)(dt1::AbstractDataTable, dt2::AbstractDataTable) = isequal(dt1, dt2)
 
 function Base.isequal(dt1::AbstractDataTable, dt2::AbstractDataTable)
     size(dt1, 2) == size(dt2, 2) || return false
@@ -776,7 +776,7 @@ function Base.hash(dt::AbstractDataTable)
     for i in 1:size(dt, 2)
         h = hash(dt[i], h)
     end
-    return @compat UInt(h)
+    return UInt(h)
 end
 
 

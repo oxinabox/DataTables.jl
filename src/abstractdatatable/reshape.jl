@@ -122,7 +122,7 @@ end
 Stacks a DataTable; convert from a wide to long format; see
 `stack`.
 """
-function melt(dt::AbstractDataTable, id_vars::@compat(Union{Int,Symbol});
+function melt(dt::AbstractDataTable, id_vars::Union{Int,Symbol};
               variable_name::Symbol=:variable, value_name::Symbol=:value)
     melt(dt, [id_vars]; variable_name=variable_name, value_name=value_name)
 end

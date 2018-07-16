@@ -66,7 +66,7 @@ Base.hash(r::DataTableRow, h::UInt = zero(UInt)) = rowhash(r.dt, r.row, h)
 # rows are equal if they have the same values (while the row indices could differ)
 # returns Nullable{Bool}
 # if all non-null values are equal, but there are nulls, returns null
-@compat(Base.:(==))(r1::DataTableRow, r2::DataTableRow) = isequal(r1, r2)
+Base.:(==)(r1::DataTableRow, r2::DataTableRow) = isequal(r1, r2)
 
 function Base.isequal(r1::DataTableRow, r2::DataTableRow)
     isequal_row(r1.dt, r1.row, r2.dt, r2.row)

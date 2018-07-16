@@ -205,7 +205,7 @@ ncol(dt::DataTable) = length(index(dt))
 # Let getindex(dt.columns[j], row_inds) from AbstractVector() handle
 #  the resolution of row indices
 
-@compat const ColumnIndex = Union{Real, Symbol}
+const ColumnIndex = Union{Real, Symbol}
 
 # dt[SingleColumnIndex] => AbstractDataVector
 function Base.getindex(dt::DataTable, col_ind::ColumnIndex)
@@ -291,11 +291,11 @@ Base.getindex(dt::DataTable, ::Colon, ::Colon) = copy(dt)
 
 isnextcol(dt::DataTable, col_ind::Symbol) = true
 function isnextcol(dt::DataTable, col_ind::Real)
-    return ncol(dt) + 1 == @compat Int(col_ind)
+    return ncol(dt) + 1 == Int(col_ind)
 end
 
 function nextcolname(dt::DataTable)
-    return @compat(Symbol(string("x", ncol(dt) + 1)))
+    return Symbol(string("x", ncol(dt) + 1))
 end
 
 # Will automatically add a new column if needed
@@ -684,7 +684,7 @@ Base.delete!(dt::DataTable, c::Int) = delete!(dt, [c])
 Base.delete!(dt::DataTable, c::Any) = delete!(dt, index(dt)[c])
 
 # deleterows!()
-function deleterows!(dt::DataTable, ind::@compat(Union{Integer, UnitRange{Int}}))
+function deleterows!(dt::DataTable, ind::Union{Integer, UnitRange{Int}})
     for i in 1:ncol(dt)
         dt.columns[i] = deleteat!(dt.columns[i], ind)
     end

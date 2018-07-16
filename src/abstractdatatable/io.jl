@@ -84,7 +84,7 @@ function html_escape(cell::AbstractString)
     return cell
 end
 
-@compat function Base.show(io::IO, ::MIME"text/html", dt::AbstractDataTable)
+function Base.show(io::IO, ::MIME"text/html", dt::AbstractDataTable)
     cnames = _names(dt)
     write(io, "<table class=\"data-frame\">")
     write(io, "<tr>")
@@ -181,11 +181,11 @@ end
 #
 ##############################################################################
 
-@compat function Base.show(io::IO, ::MIME"text/csv", dt::AbstractDataTable)
+function Base.show(io::IO, ::MIME"text/csv", dt::AbstractDataTable)
     printtable(io, dt, true, ',')
 end
 
-@compat function Base.show(io::IO, ::MIME"text/tab-separated-values", dt::AbstractDataTable)
+function Base.show(io::IO, ::MIME"text/tab-separated-values", dt::AbstractDataTable)
     printtable(io, dt, true, '\t')
 end
 

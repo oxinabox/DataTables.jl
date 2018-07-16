@@ -1,4 +1,4 @@
-VERSION >= v"0.4.0-dev+6521" && __precompile__(true)
+__precompile__(true)
 
 module DataTables
 
@@ -82,11 +82,7 @@ export @~,
 ##
 ##############################################################################
 
-if VERSION < v"0.5.0-dev+2023"
-    _displaysize(x...) = Base.tty_size()
-else
-    const _displaysize = Base.displaysize
-end
+const _displaysize = Base.displaysize
 
 for (dir, filename) in [
         ("other", "utils.jl"),

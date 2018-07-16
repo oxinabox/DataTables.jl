@@ -142,7 +142,7 @@ immutable GroupApplied{T<:AbstractDataTable}
     gd::GroupedDataTable
     vals::Vector{T}
 
-    @compat function (::Type{GroupApplied})(gd::GroupedDataTable, vals::Vector)
+    function (::Type{GroupApplied})(gd::GroupedDataTable, vals::Vector)
         length(gd) == length(vals) ||
             throw(DimensionMismatch("GroupApplied requires keys and vals be of equal length (got $(length(gd)) and $(length(vals)))."))
         new{eltype(vals)}(gd, vals)

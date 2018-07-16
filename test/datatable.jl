@@ -150,7 +150,7 @@ module TestDataTable
     @test size(dt, 2) == 3
     @test typeof(dt[:, 1]) == NullableVector{Int}
     @test typeof(dt[:, 2]) == NullableVector{Float64}
-    @test typeof(dt[:, 3]) == NullableCategoricalVector{Compat.UTF8String,UInt32}
+    @test typeof(dt[:, 3]) == NullableCategoricalVector{String,UInt32}
     @test all(isnull, dt[:, 1])
     @test all(isnull, dt[:, 2])
     @test all(isnull, dt[:, 3])
@@ -206,22 +206,22 @@ module TestDataTable
     @test_throws ArgumentError push!(dtb, ("coconut",22))
 
     dtb= DataTable( first=[1,2], second=["apple","orange"] )
-    push!(dtb, @compat(Dict(:first=>3, :second=>"pear")))
+    push!(dtb, Dict(:first=>3, :second=>"pear"))
     @test isequal(dt, dtb)
 
     dt=DataTable( first=[1,2,3], second=["apple","orange","banana"] )
     dtb= DataTable( first=[1,2], second=["apple","orange"] )
-    push!(dtb, @compat(Dict("first"=>3, "second"=>"banana")))
+    push!(dtb, Dict("first"=>3, "second"=>"banana"))
     @test isequal(dt, dtb)
 
     dt0= DataTable( first=[1,2], second=["apple","orange"] )
     dtb= DataTable( first=[1,2], second=["apple","orange"] )
-    @test_throws ArgumentError push!(dtb, @compat(Dict(:first=>true, :second=>false)))
+    @test_throws ArgumentError push!(dtb, Dict(:first=>true, :second=>false))
     @test isequal(dt0, dtb)
 
     dt0= DataTable( first=[1,2], second=["apple","orange"] )
     dtb= DataTable( first=[1,2], second=["apple","orange"] )
-    @test_throws ArgumentError push!(dtb, @compat(Dict("first"=>"chicken", "second"=>"stuff")))
+    @test_throws ArgumentError push!(dtb, Dict("first"=>"chicken", "second"=>"stuff"))
     @test isequal(dt0, dtb)
 
     # delete!

@@ -38,9 +38,9 @@ let
         return position(io)
     end
     ourstrwidth(x::AbstractString) = strwidth(x) # -> Int
-    myconv = VERSION < v"0.4-" ? convert : Base.unsafe_convert
+    myconv = Base.unsafe_convert
     ourstrwidth(s::Symbol) =
-        @compat Int(ccall(:u8_strwidth,
+        Int(ccall(:u8_strwidth,
                           Csize_t,
                           (Ptr{UInt8}, ),
                           myconv(Ptr{UInt8}, s)))
@@ -318,7 +318,7 @@ function showrows(io::IO,
                   rowindices2::AbstractVector{Int},
                   maxwidths::Vector{Int},
                   splitchunks::Bool = false,
-                  rowlabel::Symbol = @compat(Symbol("Row")),
+                  rowlabel::Symbol = Symbol("Row"),
                   displaysummary::Bool = true) # -> Void
     ncols = size(dt, 2)
 
@@ -434,7 +434,7 @@ end
 function Base.show(io::IO,
                    dt::AbstractDataTable,
                    splitchunks::Bool = true,
-                   rowlabel::Symbol = @compat(Symbol("Row")),
+                   rowlabel::Symbol = Symbol("Row"),
                    displaysummary::Bool = true) # -> Void
     nrows = size(dt, 1)
     dsize = _displaysize(io)
@@ -512,7 +512,7 @@ end
 function Base.showall(io::IO,
                       dt::AbstractDataTable,
                       splitchunks::Bool = false,
-                      rowlabel::Symbol = @compat(Symbol("Row")),
+                      rowlabel::Symbol = Symbol("Row"),
                       displaysummary::Bool = true) # -> Void
     rowindices1 = 1:size(dt, 1)
     rowindices2 = 1:0
@@ -570,7 +570,7 @@ function showcols(io::IO, dt::AbstractDataTable) # -> Void
     metadata = DataTable(Name = _names(dt),
                          Eltype = eltypes(dt),
                          Missing = colmissing(dt))
-    showall(io, metadata, true, @compat(Symbol("Col #")), false)
+    showall(io, metadata, true, Symbol("Col #"), false)
     return
 end
 
